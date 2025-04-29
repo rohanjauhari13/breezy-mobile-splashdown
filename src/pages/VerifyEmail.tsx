@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { useNavigate, useLocation } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { toast } from "sonner";
-import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 
 const VerifyEmail = () => {
   const [otp, setOtp] = useState("");
@@ -54,6 +53,11 @@ const VerifyEmail = () => {
     }
   };
 
+  // Handle OTP input changes - digit by digit
+  const handleOtpChange = (value: string) => {
+    setOtp(value);
+  };
+
   return (
     <div className="w-full min-h-screen bg-white px-6 py-12 flex flex-col">
       <div className="mb-8">
@@ -75,22 +79,37 @@ const VerifyEmail = () => {
         <div className="mt-10">
           <label className="text-xl font-medium mb-4 block">Code</label>
           
-          <InputOTP 
-            maxLength={4} 
-            value={otp}
-            onChange={setOtp}
-            render={({ slots }) => (
-              <InputOTPGroup className="gap-3 flex justify-start w-full">
-                {slots.map((slot, index) => (
-                  <InputOTPSlot 
-                    key={index} 
-                    {...slot} 
-                    className="w-16 h-16 text-2xl border-gray-300" 
-                  />
-                ))}
-              </InputOTPGroup>
-            )}
-          />
+          {/* Replace the InputOTP component with a simpler implementation */}
+          <div className="flex gap-3">
+            {[0, 1, 2, 3].map((index) => (
+              <input
+                key={index}
+                type="text"
+                maxLength={1}
+                className="w-16 h-16 text-2xl border border-gray-300 rounded text-center"
+                value={otp[index] || ''}
+                onChange={(e) => {
+                  const newOtp = otp.split('');
+                  newOtp[index] = e.target.value.slice(-1);
+                  setOtp(newOtp.join(''));
+                  
+                  // Auto focus next input if value is entered
+                  if (e.target.value && index < 3) {
+                    const nextInput = document.querySelector(`input[data-index="${index + 1}"]`) as HTMLInputElement;
+                    if (nextInput) nextInput.focus();
+                  }
+                }}
+                onKeyDown={(e) => {
+                  // Handle backspace to focus previous input
+                  if (e.key === 'Backspace' && !otp[index] && index > 0) {
+                    const prevInput = document.querySelector(`input[data-index="${index - 1}"]`) as HTMLInputElement;
+                    if (prevInput) prevInput.focus();
+                  }
+                }}
+                data-index={index}
+              />
+            ))}
+          </div>
           
           <div className="mt-8 text-center">
             <p className="text-gray-500">

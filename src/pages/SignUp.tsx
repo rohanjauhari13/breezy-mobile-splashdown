@@ -21,10 +21,14 @@ const SignUp = () => {
       return;
     }
     
+    if (!schoolEmail.endsWith("@northeastern.edu")) {
+      toast.error("Please use a northeastern.edu email address");
+      return;
+    }
+    
     console.log("Sign up attempt with:", { name, email: schoolEmail, password });
-    // Handle registration logic here
-    toast.success("Account created successfully!");
-    navigate("/signin");
+    // Navigate to verification page with email in state
+    navigate("/verify-email", { state: { email: schoolEmail } });
   };
 
   return (

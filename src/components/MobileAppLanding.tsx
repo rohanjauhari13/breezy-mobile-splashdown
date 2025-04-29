@@ -2,13 +2,19 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const MobileAppLanding = () => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsLoaded(true);
   }, []);
+
+  const handleGetStarted = () => {
+    navigate("/signin");
+  };
 
   return (
     <div className="relative w-full h-screen overflow-hidden bg-black">
@@ -47,7 +53,7 @@ const MobileAppLanding = () => {
         {/* CTA Button */}
         <Button 
           className="w-full bg-black text-white hover:bg-gray-800 rounded-lg py-6 text-lg font-medium"
-          onClick={() => console.log("Get Started clicked")}
+          onClick={handleGetStarted}
         >
           Get Started
           <ArrowRight className="ml-2 h-5 w-5" />

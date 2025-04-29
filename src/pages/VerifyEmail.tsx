@@ -85,7 +85,6 @@ const VerifyEmail = () => {
                   <InputOTPSlot 
                     key={index} 
                     {...slot} 
-                    index={index}
                     className="w-16 h-16 text-2xl border-gray-300" 
                   />
                 ))}

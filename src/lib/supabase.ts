@@ -25,17 +25,52 @@ function createMockClient() {
         console.log(`Mock insert to ${table}:`, data);
         return Promise.resolve({ error: null, data });
       },
-      select: () => {
+      select: (columns: string = '*') => {
         console.log(`Mock select from ${table}`);
-        return Promise.resolve({ error: null, data: [] });
+        // Return a query builder with chained methods instead of a direct Promise
+        return {
+          eq: (column: string, value: any) => {
+            console.log(`Mock filter ${table} where ${column} = ${value}`);
+            return {
+              single: () => {
+                console.log(`Mock single result from ${table}`);
+                return Promise.resolve({ error: null, data: null });
+              },
+              get: () => {
+                console.log(`Mock get results from ${table}`);
+                return Promise.resolve({ error: null, data: [] });
+              }
+            };
+          },
+          neq: () => {
+            return {
+              single: () => Promise.resolve({ error: null, data: null }),
+              get: () => Promise.resolve({ error: null, data: [] })
+            };
+          },
+          single: () => {
+            console.log(`Mock single result from ${table}`);
+            return Promise.resolve({ error: null, data: null });
+          }
+        };
       },
       update: (data: any) => {
         console.log(`Mock update to ${table}:`, data);
-        return Promise.resolve({ error: null, data });
+        return {
+          eq: (column: string, value: any) => {
+            console.log(`Mock update ${table} where ${column} = ${value}`);
+            return Promise.resolve({ error: null, data });
+          }
+        };
       },
       delete: () => {
         console.log(`Mock delete from ${table}`);
-        return Promise.resolve({ error: null });
+        return {
+          eq: (column: string, value: any) => {
+            console.log(`Mock delete from ${table} where ${column} = ${value}`);
+            return Promise.resolve({ error: null });
+          }
+        };
       }
     }),
     auth: {

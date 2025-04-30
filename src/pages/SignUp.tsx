@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import { supabase } from "@/lib/supabase";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 
 const SignUp = () => {
   const [name, setName] = useState("");
@@ -11,9 +13,57 @@ const SignUp = () => {
   const [schoolEmail, setSchoolEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [isCheckingEmail, setIsCheckingEmail] = useState(false);
+  const [emailExists, setEmailExists] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Check if email already exists in database
+  const checkEmailExists = async (email: string) => {
+    if (!email || !email.endsWith("@northeastern.edu")) return;
+    
+    setIsCheckingEmail(true);
+    setEmailExists(false);
+    
+    try {
+      // Query user_profiles table for the email
+      const { data, error } = await supabase
+        .from('user_profiles')
+        .select('email')
+        .eq('email', email)
+        .single();
+      
+      if (error && error.code !== 'PGRST116') {
+        console.error("Error checking email:", error);
+      } else {
+        // If data exists, email is already registered
+        if (data) {
+          setEmailExists(true);
+        }
+      }
+    } catch (err) {
+      console.error("Failed to check email:", err);
+    } finally {
+      setIsCheckingEmail(false);
+    }
+  };
+
+  // Handle email input with debounce
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newEmail = e.target.value;
+    setSchoolEmail(newEmail);
+    
+    // Clear existing timeout
+    if (window.emailCheckTimeout) {
+      clearTimeout(window.emailCheckTimeout);
+    }
+    
+    // Set new timeout to check email after 500ms of inactivity
+    window.emailCheckTimeout = setTimeout(() => {
+      checkEmailExists(newEmail);
+    }, 500);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (password !== confirmPassword) {
@@ -25,10 +75,34 @@ const SignUp = () => {
       toast.error("Please use a northeastern.edu email address");
       return;
     }
-    
-    console.log("Sign up attempt with:", { name, email: schoolEmail, password });
-    // Navigate to verification page with email in state
-    navigate("/verify-email", { state: { email: schoolEmail } });
+
+    // Final check before submission
+    try {
+      setIsCheckingEmail(true);
+      const { data } = await supabase
+        .from('user_profiles')
+        .select('email')
+        .eq('email', schoolEmail)
+        .single();
+      
+      if (data) {
+        setEmailExists(true);
+        toast.error("This email is already registered");
+        setIsCheckingEmail(false);
+        return;
+      }
+      
+      setIsCheckingEmail(false);
+      console.log("Sign up attempt with:", { name, email: schoolEmail, password });
+      // Navigate to verification page with email in state
+      navigate("/verify-email", { state: { email: schoolEmail } });
+      
+    } catch (error) {
+      setIsCheckingEmail(false);
+      // If error is not found, it means email doesn't exist, which is good
+      console.log("Sign up attempt with:", { name, email: schoolEmail, password });
+      navigate("/verify-email", { state: { email: schoolEmail } });
+    }
   };
 
   return (
@@ -57,10 +131,19 @@ const SignUp = () => {
               type="email"
               placeholder="xxx@northeastern.edu"
               value={schoolEmail}
-              onChange={(e) => setSchoolEmail(e.target.value)}
-              className="h-14 text-lg rounded-lg"
+              onChange={handleEmailChange}
+              className={`h-14 text-lg rounded-lg ${emailExists ? 'border-red-500' : ''}`}
               required
+              disabled={isCheckingEmail}
             />
+            {emailExists && (
+              <Alert variant="destructive" className="mt-2">
+                <AlertTitle>Email already registered</AlertTitle>
+                <AlertDescription>
+                  This email is already in use. Please use a different email or sign in.
+                </AlertDescription>
+              </Alert>
+            )}
             <p className="text-gray-400 text-sm mt-2">An OTP will be sent to your email.</p>
           </div>
           
@@ -93,8 +176,9 @@ const SignUp = () => {
           <Button 
             type="submit" 
             className="w-full bg-black text-white hover:bg-gray-800 rounded-lg py-6 text-lg font-medium h-auto mt-4"
+            disabled={isCheckingEmail || emailExists}
           >
-            Create Account
+            {isCheckingEmail ? "Checking..." : "Create Account"}
           </Button>
         </form>
         

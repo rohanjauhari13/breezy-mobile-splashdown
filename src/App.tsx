@@ -12,6 +12,7 @@ import UserProfile from "./pages/UserProfile";
 import LookingForOptions from "./pages/LookingForOptions";
 import RoommateOptions from "./pages/RoommateOptions";
 import MatchingProfiles from "./pages/MatchingProfiles";
+import FindHouse from "./pages/FindHouse";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -31,6 +32,7 @@ const App = () => (
           <Route path="/looking-for-options" element={<LookingForOptions />} />
           <Route path="/roommate-options" element={<RoommateOptions />} />
           <Route path="/matching-profiles" element={<MatchingProfiles />} />
+          <Route path="/find-house" element={<FindHouse />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

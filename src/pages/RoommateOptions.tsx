@@ -15,7 +15,11 @@ const RoommateOptions = () => {
   const handleOptionSelect = (option: string) => {
     console.log(`Selected roommate option: ${option}`);
     // Navigate to the appropriate page based on selection
-    navigate("/");
+    if (option === "looking_for_both") {
+      navigate("/matching-profiles");
+    } else {
+      navigate("/");
+    }
   };
   
   return (

@@ -1,26 +1,21 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import RoommateIcon from "@/components/icons/RoommateIcon";
-import HomeIcon from "@/components/icons/HomeIcon";
 
-const LookingForOptions = () => {
+const RoommateOptions = () => {
   const navigate = useNavigate();
   
   const handleGoBack = () => {
-    navigate("/user-profile");
+    navigate("/looking-for-options");
   };
   
   const handleOptionSelect = (option: string) => {
-    console.log(`Selected option: ${option}`);
+    console.log(`Selected roommate option: ${option}`);
     // Navigate to the appropriate page based on selection
-    if (option === "roommates") {
-      navigate("/roommate-options");
-    } else {
-      navigate("/");
-    }
+    navigate("/");
   };
   
   return (
@@ -40,25 +35,19 @@ const LookingForOptions = () => {
       <div className="space-y-6">
         <Card 
           className="p-6 border border-gray-200 rounded-2xl flex items-center cursor-pointer hover:shadow-md transition-shadow"
-          onClick={() => handleOptionSelect("roommates")}
+          onClick={() => handleOptionSelect("looking_for_both")}
         >
-          <div className="flex-shrink-0 mr-6">
-            <RoommateIcon />
-          </div>
-          <div>
-            <h2 className="text-2xl font-bold">Find Roommates</h2>
+          <div className="text-center w-full py-4">
+            <h2 className="text-xl font-medium">Are you looking for a house and roommates?</h2>
           </div>
         </Card>
         
         <Card 
           className="p-6 border border-gray-200 rounded-2xl flex items-center cursor-pointer hover:shadow-md transition-shadow"
-          onClick={() => handleOptionSelect("home")}
+          onClick={() => handleOptionSelect("have_house")}
         >
-          <div className="flex-shrink-0 mr-6">
-            <HomeIcon />
-          </div>
-          <div>
-            <h2 className="text-2xl font-bold">Find Home</h2>
+          <div className="text-center w-full py-4">
+            <h2 className="text-xl font-medium">Do you have a house and are looking for roommates?</h2>
           </div>
         </Card>
       </div>
@@ -66,4 +55,4 @@ const LookingForOptions = () => {
   );
 };
 
-export default LookingForOptions;
+export default RoommateOptions;

@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
@@ -55,11 +54,11 @@ const FindHouse = () => {
     navigate("/matching-profiles");
   };
 
-  const handleProfile = () => {
-    navigate("/user-profile");
+  const handleNavigateProfile = () => {
+    navigate("/profile-details");
   };
 
-  const handleHome = () => {
+  const handleNavigateHome = () => {
     navigate("/");
   };
 
@@ -87,7 +86,7 @@ const FindHouse = () => {
         </div>
         
         <button 
-          onClick={handleProfile}
+          onClick={handleNavigateProfile}
           className="text-red-500 rounded-full text-2xl"
         >
           →
@@ -136,7 +135,7 @@ const FindHouse = () => {
                     <span className="text-gray-700">
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M12 6a1 1 0 100 2h8a1 1 0 100-2h-8z" fill="currentColor" />
-                        <path fillRule="evenodd" clipRule="evenodd" d="M4 5a3 3 0 00-3 3v10a1 1 0 001 1h1v2a1 1 0 102 0v-2h14v2a1 1 0 102 0v-2h1a1 1 0 001-1V8a3 3 0 00-3-3H4zm-1 3a1 1 0 011-1h16a1 1 0 011 1v1H3V8zm0 3h18v7H3v-7z" fill="currentColor" />
+                        <path fillRule="evenodd" clipRule="evenodd" d="M4 5a3 3 0 00-3 3v10a1 1 0 001 1h1v2a1 1 0 102 0v-2h14v2a1 1 0 102 0v-2h1a1 1 0 001-1V8a3 3 0 00-3-3H4zm-1 3a1 1 0 11-2 0 1 1 0 012 0z" fill="currentColor" />
                       </svg>
                     </span>
                     <span>{listing.bedrooms} Bed</span>
@@ -183,13 +182,13 @@ const FindHouse = () => {
       {/* Footer navigation */}
       <footer className="border-t p-4 flex justify-around">
         <button 
-          onClick={handleHome}
+          onClick={handleNavigateHome}
           className="text-red-500"
         >
           <Home className="w-6 h-6" />
         </button>
         <button 
-          onClick={handleProfile}
+          onClick={handleNavigateProfile}
           className="text-gray-400"
         >
           <User className="w-6 h-6" />

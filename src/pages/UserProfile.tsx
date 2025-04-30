@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -19,7 +20,7 @@ const UserProfile = () => {
   const navigate = useNavigate();
   
   const handleSkip = () => {
-    navigate("/");
+    navigate("/looking-for-options");
     toast.success("Profile setup skipped");
   };
   
@@ -62,7 +63,7 @@ const UserProfile = () => {
 
       console.log("Profile data saved:", profileData);
       toast.success("Profile created successfully");
-      navigate("/");
+      navigate("/looking-for-options");
     } catch (error) {
       console.error("Error saving profile:", error);
       toast.error("Failed to save profile. Please try again.");

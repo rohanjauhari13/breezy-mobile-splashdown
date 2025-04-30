@@ -1,49 +1,66 @@
 
 import { useState, useEffect } from "react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Home, User, edit } from "lucide-react";
+import { Home, User, Edit } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/lib/supabase";
 import { UserProfile as UserProfileType } from "@/types/userProfile";
+import { toast } from "@/components/ui/sonner";
 
 const ProfileDetails = () => {
   const navigate = useNavigate();
   const [profile, setProfile] = useState<UserProfileType | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Mock data for demonstration
-  const mockProfile: UserProfileType = {
-    name: "Husky01",
-    email: "name@northeastern.edu",
-    phone: "+01 234 567 89",
-    program: "MSCS",
-    location: "Boston",
-    preferences: ["Non-Vegetarian", "Student", "Non-Smoker"],
-    amenities: ["Air conditioning", "Furnished", "High speed internet"]
-  };
-
+  // Fetch profile data from Supabase
   useEffect(() => {
-    // Attempt to fetch profile data from Supabase
     const fetchProfile = async () => {
       try {
-        const { data, error } = await supabase
-          .from('user_profiles')
-          .select('*')
-          .single();
+        // First try to get the current session
+        const { data: sessionData } = await supabase.auth.getSession();
+        const userId = sessionData?.session?.user?.id;
         
-        if (error) {
-          console.error("Error fetching profile:", error);
-          // Fall back to mock data if there's an error
-          setProfile(mockProfile);
-        } else if (data) {
-          setProfile(data);
+        if (userId) {
+          // If user is authenticated, fetch their profile
+          const { data, error } = await supabase
+            .from('user_profiles')
+            .select('*')
+            .eq('user_id', userId)
+            .single();
+          
+          if (error) {
+            console.error("Error fetching profile:", error);
+            toast.error("Could not fetch profile data");
+            
+            // If no data found, use mock data as fallback
+            setProfile({
+              name: "Husky01",
+              email: "name@northeastern.edu",
+              phone: "+01 234 567 89",
+              program: "MSCS",
+              location: "Boston",
+              preferences: ["Non-Vegetarian", "Student", "Non-Smoker"],
+              amenities: ["Air conditioning", "Furnished", "High speed internet"]
+            });
+          } else if (data) {
+            setProfile(data);
+          }
         } else {
-          // If no data is returned, use mock data
-          setProfile(mockProfile);
+          // If no active session, use mock data
+          console.log("No active session, using mock data");
+          setProfile({
+            name: "Husky01",
+            email: "name@northeastern.edu",
+            phone: "+01 234 567 89",
+            program: "MSCS",
+            location: "Boston",
+            preferences: ["Non-Vegetarian", "Student", "Non-Smoker"],
+            amenities: ["Air conditioning", "Furnished", "High speed internet"]
+          });
         }
       } catch (error) {
         console.error("Failed to fetch profile:", error);
-        setProfile(mockProfile);
+        toast.error("Error loading profile");
       } finally {
         setIsLoading(false);
       }
@@ -60,9 +77,20 @@ const ProfileDetails = () => {
     navigate("/user-profile");
   };
 
-  const handleLogout = () => {
-    // Implement logout logic here
-    navigate("/signin");
+  const handleLogout = async () => {
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        console.error("Error signing out:", error);
+        toast.error("Failed to log out");
+      } else {
+        toast.success("Successfully logged out");
+        navigate("/signin");
+      }
+    } catch (error) {
+      console.error("Failed to sign out:", error);
+      toast.error("Failed to log out");
+    }
   };
 
   if (isLoading) {
@@ -102,7 +130,7 @@ const ProfileDetails = () => {
             onClick={handleEditProfile}
             className="absolute bottom-1 right-1 bg-white rounded-full p-2 shadow"
           >
-            <edit className="w-4 h-4" />
+            <Edit className="w-4 h-4" />
           </button>
         </div>
         

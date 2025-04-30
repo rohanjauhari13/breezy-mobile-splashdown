@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Home, User, Search } from "lucide-react";
@@ -74,6 +73,10 @@ const MatchingProfiles = () => {
   const handleNavigateProfile = () => {
     navigate("/user-profile");
   };
+  
+  const handleFindHouse = () => {
+    navigate("/find-house");
+  };
 
   return (
     <div className="w-full min-h-screen bg-white flex flex-col">
@@ -85,7 +88,10 @@ const MatchingProfiles = () => {
         </Avatar>
         
         <div className="flex gap-2">
-          <button className="bg-gray-100 text-black flex items-center gap-1 px-6 py-2 rounded-full">
+          <button 
+            onClick={handleFindHouse}
+            className="bg-gray-100 text-black flex items-center gap-1 px-6 py-2 rounded-full"
+          >
             <Home className="w-5 h-5" />
             Find House
           </button>
@@ -154,7 +160,10 @@ const MatchingProfiles = () => {
         >
           <Home className="w-6 h-6" />
         </button>
-        <button className="text-gray-400">
+        <button 
+          onClick={handleNavigateProfile}
+          className="text-gray-400"
+        >
           <User className="w-6 h-6" />
         </button>
       </footer>

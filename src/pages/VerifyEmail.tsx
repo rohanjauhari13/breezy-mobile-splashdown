@@ -46,8 +46,8 @@ const VerifyEmail = () => {
   const handleVerify = () => {
     if (otp === generatedOtp) {
       toast.success("Email verified successfully");
-      // In a real app, you would create the user account here
-      navigate("/signin");
+      // Navigate to user profile page instead of sign in
+      navigate("/user-profile");
     } else {
       toast.error("Invalid OTP, please try again");
     }

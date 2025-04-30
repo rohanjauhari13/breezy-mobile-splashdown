@@ -1,9 +1,10 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import { supabase } from "@/lib/supabase";
+import { UserProfile as UserProfileType } from "@/types/userProfile";
 
 const UserProfile = () => {
   const [name, setName] = useState("");
@@ -13,6 +14,7 @@ const UserProfile = () => {
   const [location, setLocation] = useState("");
   const [preferences, setPreferences] = useState<string[]>([]);
   const [amenities, setAmenities] = useState<string[]>([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   
   const navigate = useNavigate();
   
@@ -37,11 +39,36 @@ const UserProfile = () => {
     );
   };
   
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Profile data:", { name, email, phone, program, location, preferences, amenities });
-    toast.success("Profile created successfully");
-    navigate("/");
+    setIsSubmitting(true);
+
+    const profileData: UserProfileType = {
+      name,
+      email,
+      phone,
+      program,
+      location,
+      preferences,
+      amenities
+    };
+
+    try {
+      const { error } = await supabase
+        .from('user_profiles')
+        .insert(profileData);
+
+      if (error) throw error;
+
+      console.log("Profile data saved:", profileData);
+      toast.success("Profile created successfully");
+      navigate("/");
+    } catch (error) {
+      console.error("Error saving profile:", error);
+      toast.error("Failed to save profile. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
   
   const preferenceOptions = [
@@ -175,8 +202,9 @@ const UserProfile = () => {
         <Button 
           type="submit" 
           className="w-full bg-black text-white hover:bg-gray-800 rounded-lg py-6 text-lg font-medium h-auto mt-6"
+          disabled={isSubmitting}
         >
-          Continue
+          {isSubmitting ? "Saving..." : "Continue"}
         </Button>
       </form>
     </div>

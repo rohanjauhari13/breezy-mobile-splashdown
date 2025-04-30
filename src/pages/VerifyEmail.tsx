@@ -9,6 +9,7 @@ const VerifyEmail = () => {
   const [otp, setOtp] = useState("");
   const [email, setEmail] = useState("");
   const [generatedOtp, setGeneratedOtp] = useState("");
+  const [showTestOtp, setShowTestOtp] = useState(true); // Display OTP for testing
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -76,10 +77,20 @@ const VerifyEmail = () => {
           {email || "xxx@northeastern.edu"} email
         </p>
         
+        {/* Show test OTP for development */}
+        {showTestOtp && (
+          <div className="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded-md">
+            <p className="text-yellow-800">
+              <strong>Test OTP:</strong> {generatedOtp} 
+              <span className="text-xs ml-2">(For development purposes only)</span>
+            </p>
+          </div>
+        )}
+        
         <div className="mt-10">
           <label className="text-xl font-medium mb-4 block">Code</label>
           
-          {/* Replace the InputOTP component with a simpler implementation */}
+          {/* Simple OTP input implementation */}
           <div className="flex gap-3">
             {[0, 1, 2, 3].map((index) => (
               <input

@@ -1,7 +1,6 @@
-
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Home, User, RefreshCcw, ArrowLeft } from "lucide-react";
+import { Home, User, RefreshCcw } from "lucide-react";
 import BackButton from "@/components/BackButton";
 
 interface HouseDetailsProps {
@@ -51,10 +50,6 @@ const HouseDetails = () => {
       amenities: ["Air conditioning", "Assisted living", "Disability Access", "Controlled access", "Cable Ready", "College", "Corporate", "Elevator", "Extra Storage"]
     }
   );
-
-  const handleBack = () => {
-    navigate(-1);
-  };
 
   const handleNavigateHome = () => {
     navigate("/find-house");

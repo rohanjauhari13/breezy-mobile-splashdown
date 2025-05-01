@@ -14,6 +14,7 @@ import RoommateOptions from "./pages/RoommateOptions";
 import MatchingProfiles from "./pages/MatchingProfiles";
 import FindHouse from "./pages/FindHouse";
 import ProfileDetails from "./pages/ProfileDetails";
+import HouseDetails from "./pages/HouseDetails";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -34,6 +35,7 @@ const App = () => (
           <Route path="/roommate-options" element={<RoommateOptions />} />
           <Route path="/matching-profiles" element={<MatchingProfiles />} />
           <Route path="/find-house" element={<FindHouse />} />
+          <Route path="/house-details/:id" element={<HouseDetails />} />
           <Route path="/profile-details" element={<ProfileDetails />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

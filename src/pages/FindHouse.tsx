@@ -17,13 +17,21 @@ interface HouseListing {
   isSharedSpot: boolean;
   isAccessible: boolean;
   rent: number;
+  distanceAway?: string;
+  postedBy?: {
+    name: string;
+    title?: string;
+    avatar?: string;
+  };
+  studentsCount?: number;
+  amenities?: string[];
 }
 
 const FindHouse = () => {
   const navigate = useNavigate();
   const [filtersOpen, setFiltersOpen] = useState(false);
   
-  // Mock data for house listings
+  // Enhanced mock data for house listings
   const [listings] = useState<HouseListing[]>([
     {
       id: "1",
@@ -34,7 +42,14 @@ const FindHouse = () => {
       bathrooms: 1.5,
       isSharedSpot: true,
       isAccessible: true,
-      rent: 660
+      rent: 660,
+      distanceAway: "1.3 miles away",
+      postedBy: {
+        name: "Preethi, MSIS",
+        avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80"
+      },
+      studentsCount: 5,
+      amenities: ["Air conditioning", "Assisted living", "Disability Access", "Controlled access", "Cable Ready", "College", "Corporate", "Elevator", "Extra Storage"]
     },
     {
       id: "2",
@@ -45,7 +60,13 @@ const FindHouse = () => {
       bathrooms: 1,
       isSharedSpot: true,
       isAccessible: false,
-      rent: 780
+      rent: 780,
+      distanceAway: "0.8 miles away",
+      postedBy: {
+        name: "John Doe",
+      },
+      studentsCount: 3,
+      amenities: ["Air conditioning", "Cable Ready", "College", "Extra Storage"]
     }
   ]);
 
@@ -63,6 +84,10 @@ const FindHouse = () => {
 
   const handleNavigateHome = () => {
     navigate("/");
+  };
+
+  const handleViewHouseDetails = (listing: HouseListing) => {
+    navigate(`/house-details/${listing.id}`, { state: { listing } });
   };
 
   return (
@@ -121,7 +146,11 @@ const FindHouse = () => {
         {/* Listings */}
         <div className="space-y-6">
           {listings.map((listing) => (
-            <Card key={listing.id} className="overflow-hidden rounded-xl">
+            <Card 
+              key={listing.id} 
+              className="overflow-hidden rounded-xl cursor-pointer"
+              onClick={() => handleViewHouseDetails(listing)}
+            >
               {/* Listing image */}
               <div className="w-full h-48">
                 <img 

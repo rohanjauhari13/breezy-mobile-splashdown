@@ -1,9 +1,11 @@
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Filter, Home, User } from "lucide-react";
+import FiltersSheet from "@/components/FindHouse/FiltersSheet";
 
 interface HouseListing {
   id: string;
@@ -19,6 +21,7 @@ interface HouseListing {
 
 const FindHouse = () => {
   const navigate = useNavigate();
+  const [filtersOpen, setFiltersOpen] = useState(false);
   
   // Mock data for house listings
   const [listings] = useState<HouseListing[]>([
@@ -100,11 +103,15 @@ const FindHouse = () => {
           <Button
             variant="outline"
             className="rounded-full bg-gray-100 border-0 flex items-center gap-2"
+            onClick={() => setFiltersOpen(true)}
           >
             <Filter className="w-4 h-4" />
             Add Filters
           </Button>
         </div>
+        
+        {/* Filters Sheet */}
+        <FiltersSheet open={filtersOpen} onOpenChange={setFiltersOpen} />
         
         {/* Listings heading */}
         <h1 className="text-2xl font-bold mb-4">

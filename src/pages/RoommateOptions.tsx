@@ -17,8 +17,8 @@ const RoommateOptions = () => {
     // Navigate to the appropriate page based on selection
     if (option === "looking_for_both") {
       navigate("/matching-profiles");
-    } else {
-      navigate("/");
+    } else if (option === "have_house") {
+      navigate("/house-details-form");
     }
   };
   

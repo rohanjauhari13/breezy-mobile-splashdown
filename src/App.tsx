@@ -16,6 +16,7 @@ import FindHouse from "./pages/FindHouse";
 import ProfileDetails from "./pages/ProfileDetails";
 import HouseDetails from "./pages/HouseDetails";
 import PersonDetails from "./pages/PersonDetails";
+import HouseDetailsForm from "./pages/HouseDetailsForm";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -39,6 +40,7 @@ const App = () => (
           <Route path="/house-details/:id" element={<HouseDetails />} />
           <Route path="/profile-details" element={<ProfileDetails />} />
           <Route path="/person-details/:id" element={<PersonDetails />} />
+          <Route path="/house-details-form" element={<HouseDetailsForm />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

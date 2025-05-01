@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Home, User, Search } from "lucide-react";
@@ -95,36 +94,32 @@ const MatchingProfiles = () => {
 
   return (
     <div className="w-full min-h-screen bg-white flex flex-col">
-      {/* Header with back button, user avatar and navigation buttons */}
-      <header className="p-4 border-b flex items-center justify-between">
-        <div className="flex items-center">
-          <BackButton className="mr-2" />
-          <Avatar className="w-12 h-12">
-            <AvatarImage src="" alt="User" />
-            <AvatarFallback>U</AvatarFallback>
-          </Avatar>
-        </div>
-        
-        <div className="flex gap-2">
+      {/* Header with back button and navigation buttons */}
+      <header className="p-4 border-b">
+        <div className="flex items-center justify-between">
+          <BackButton />
+          
+          <div className="flex gap-2">
+            <button 
+              onClick={handleFindHouse}
+              className="bg-gray-100 text-black flex items-center gap-1 px-6 py-2 rounded-full"
+            >
+              <Home className="w-5 h-5" />
+              Find House
+            </button>
+            <button className="bg-black text-white flex items-center gap-1 px-6 py-2 rounded-full">
+              <User className="w-5 h-5" />
+              Find People
+            </button>
+          </div>
+          
           <button 
-            onClick={handleFindHouse}
-            className="bg-gray-100 text-black flex items-center gap-1 px-6 py-2 rounded-full"
+            onClick={handleNavigateProfile}
+            className="text-red-500 rounded-full text-2xl"
           >
-            <Home className="w-5 h-5" />
-            Find House
-          </button>
-          <button className="bg-black text-white flex items-center gap-1 px-6 py-2 rounded-full">
-            <User className="w-5 h-5" />
-            Find People
+            →
           </button>
         </div>
-        
-        <button 
-          onClick={handleNavigateProfile}
-          className="text-red-500 rounded-full text-2xl"
-        >
-          →
-        </button>
       </header>
 
       {/* Main content */}

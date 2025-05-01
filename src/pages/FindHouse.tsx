@@ -20,7 +20,7 @@ interface HouseListing {
   distanceAway?: string;
   postedBy?: {
     name: string;
-    title?: string;
+    title?: string; // Make title optional to match with the HouseDetails interface
     avatar?: string;
   };
   studentsCount?: number;
@@ -46,6 +46,7 @@ const FindHouse = () => {
       distanceAway: "1.3 miles away",
       postedBy: {
         name: "Preethi, MSIS",
+        title: "Student", // Added title property
         avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80"
       },
       studentsCount: 5,
@@ -64,6 +65,7 @@ const FindHouse = () => {
       distanceAway: "0.8 miles away",
       postedBy: {
         name: "John Doe",
+        title: "Landlord" // Added title property
       },
       studentsCount: 3,
       amenities: ["Air conditioning", "Cable Ready", "College", "Extra Storage"]

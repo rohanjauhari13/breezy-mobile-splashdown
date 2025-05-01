@@ -1,9 +1,13 @@
+
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Home, User, RefreshCcw } from "lucide-react";
+import { Home, User, RefreshCcw, ArrowRight } from "lucide-react";
 import { UserProfile } from "@/types/userProfile";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import BackButton from "@/components/BackButton";
+import { Button } from "@/components/ui/button";
+import { toast } from "@/components/ui/sonner";
+import { Card } from "@/components/ui/card";
 
 const PersonDetails = () => {
   const navigate = useNavigate();
@@ -34,6 +38,36 @@ const PersonDetails = () => {
 
   const handleNavigateProfile = () => {
     navigate("/profile-details");
+  };
+  
+  const handleViewPostedHouse = () => {
+    navigate("/house-details", { 
+      state: { 
+        listing: {
+          id: "1",
+          imageUrl: "https://images.unsplash.com/photo-1518005020951-eccb494ad742",
+          address: "16, Delle Ave.",
+          location: "Mission Main",
+          bedrooms: 3,
+          bathrooms: 1.5,
+          isSharedSpot: true,
+          isAccessible: true,
+          rent: 660,
+          distanceAway: "1.3 miles away",
+          postedBy: {
+            name: personProfile.name,
+            title: personProfile.program,
+            avatar: profile?.imageUrl
+          }
+        }
+      }
+    });
+  };
+  
+  const handleContact = () => {
+    toast.success(`Contacting ${personProfile.name}...`, {
+      description: "A message has been sent to this user."
+    });
   };
 
   return (
@@ -105,6 +139,27 @@ const PersonDetails = () => {
         </div>
       </div>
 
+      {/* Posted House Details button */}
+      <div className="px-6 py-2">
+        <Card 
+          className="flex items-center p-4 cursor-pointer"
+          onClick={handleViewPostedHouse}
+        >
+          <div className="h-16 w-20 rounded-md overflow-hidden mr-4">
+            <img 
+              src="https://images.unsplash.com/photo-1518005020951-eccb494ad742" 
+              alt="House" 
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <div className="flex-1">
+            <h3 className="text-lg text-gray-500 font-medium">Posted House Details</h3>
+            <p className="text-gray-700">16, Delle Ave. - Mission Main</p>
+          </div>
+          <ArrowRight className="h-5 w-5 text-gray-400" />
+        </Card>
+      </div>
+
       {/* Preferences section */}
       <div className="px-6 py-4">
         <h3 className="text-2xl font-bold mb-4">Preferences</h3>
@@ -121,7 +176,7 @@ const PersonDetails = () => {
       </div>
       
       {/* Amenities section */}
-      <div className="px-6 py-4 mb-20">
+      <div className="px-6 py-4 mb-32">
         <h3 className="text-2xl font-bold mb-4">Amenties</h3>
         <div className="flex flex-wrap gap-2">
           {personProfile.amenities.map((amenity, index) => (
@@ -133,6 +188,16 @@ const PersonDetails = () => {
             </div>
           ))}
         </div>
+      </div>
+
+      {/* Contact button */}
+      <div className="px-6 fixed bottom-16 left-0 right-0">
+        <Button 
+          onClick={handleContact}
+          className="w-full py-6 text-lg font-medium h-auto flex items-center justify-center gap-2 bg-black hover:bg-gray-800"
+        >
+          Contact
+        </Button>
       </div>
 
       {/* Footer navigation */}

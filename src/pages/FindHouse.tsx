@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Filter, Home, User } from "lucide-react";
 import FiltersSheet from "@/components/FindHouse/FiltersSheet";
+import BackButton from "@/components/BackButton";
 
 interface HouseListing {
   id: string;
@@ -94,33 +95,38 @@ const FindHouse = () => {
 
   return (
     <div className="w-full min-h-screen bg-white flex flex-col">
-      {/* Header with user avatar and navigation buttons */}
-      <header className="p-4 border-b flex items-center justify-between">
-        <Avatar className="w-12 h-12">
-          <AvatarImage src="" alt="User" />
-          <AvatarFallback>U</AvatarFallback>
-        </Avatar>
-        
-        <div className="flex gap-2">
-          <button className="bg-black text-white flex items-center gap-1 px-6 py-2 rounded-full">
-            <Home className="w-5 h-5" />
-            Find House
-          </button>
+      {/* Header with back button, user avatar and navigation buttons */}
+      <header className="p-4 border-b">
+        <div className="mb-4">
+          <BackButton />
+        </div>
+        <div className="flex items-center justify-between">
+          <Avatar className="w-12 h-12">
+            <AvatarImage src="" alt="User" />
+            <AvatarFallback>U</AvatarFallback>
+          </Avatar>
+          
+          <div className="flex gap-2">
+            <button className="bg-black text-white flex items-center gap-1 px-6 py-2 rounded-full">
+              <Home className="w-5 h-5" />
+              Find House
+            </button>
+            <button 
+              onClick={handleFindPeople}
+              className="bg-gray-100 text-black flex items-center gap-1 px-6 py-2 rounded-full"
+            >
+              <User className="w-5 h-5" />
+              Find People
+            </button>
+          </div>
+          
           <button 
-            onClick={handleFindPeople}
-            className="bg-gray-100 text-black flex items-center gap-1 px-6 py-2 rounded-full"
+            onClick={handleNavigateProfile}
+            className="text-red-500 rounded-full text-2xl"
           >
-            <User className="w-5 h-5" />
-            Find People
+            →
           </button>
         </div>
-        
-        <button 
-          onClick={handleNavigateProfile}
-          className="text-red-500 rounded-full text-2xl"
-        >
-          →
-        </button>
       </header>
 
       {/* Main content */}

@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Home, User, Search } from "lucide-react";
@@ -82,6 +83,10 @@ const MatchingProfiles = () => {
 
   const handleNavigateProfile = () => {
     navigate("/profile-details");
+  };
+  
+  const handleFindHouse = () => {
+    navigate("/find-house");
   };
   
   const handleProfileClick = (profile: UserProfile) => {

@@ -1,6 +1,7 @@
+
 import { useState, useEffect } from "react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Home, User, Edit, ArrowLeft } from "lucide-react";
+import { Home, User, Edit } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import BackButton from "@/components/BackButton";
 
@@ -17,10 +18,6 @@ const ProfileDetails = () => {
     name: "Loading...",
     email: "Loading...",
   });
-
-  const handleBack = () => {
-    navigate(-1);
-  };
 
   const handleNavigateHome = () => {
     navigate("/find-house");

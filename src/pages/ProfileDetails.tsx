@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Home, User, Edit, ArrowLeft } from "lucide-react";
@@ -78,9 +79,8 @@ const ProfileDetails = () => {
   };
 
   const handleGoBack = () => {
-    // Using explicit route navigation instead of history-based navigation
-    // This ensures more predictable behavior
-    navigate("/");
+    // Using browser history to go back to the previous page
+    navigate(-1);
   };
 
   const handleLogout = async () => {

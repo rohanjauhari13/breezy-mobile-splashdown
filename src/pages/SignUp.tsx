@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -19,7 +20,7 @@ const SignUp = () => {
 
   // Check if email already exists in database
   const checkEmailExists = async (email: string) => {
-    if (!email || !email.endsWith("@northeastern.edu")) return;
+    if (!email) return;
     
     setIsCheckingEmail(true);
     setEmailExists(false);
@@ -71,11 +72,6 @@ const SignUp = () => {
       return;
     }
     
-    if (!schoolEmail.endsWith("@northeastern.edu")) {
-      toast.error("Please use a northeastern.edu email address");
-      return;
-    }
-
     // Final check before submission
     try {
       setIsCheckingEmail(true);
@@ -129,11 +125,11 @@ const SignUp = () => {
           </div>
           
           <div className="space-y-2">
-            <label htmlFor="email" className="text-lg font-medium">Northeastern email</label>
+            <label htmlFor="email" className="text-lg font-medium">Email</label>
             <Input
               id="email"
               type="email"
-              placeholder="xxx@northeastern.edu"
+              placeholder="Email address"
               value={schoolEmail}
               onChange={handleEmailChange}
               className={`h-14 text-lg rounded-lg ${emailExists ? 'border-red-500' : ''}`}

@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Home, User, Edit, ArrowLeft } from "lucide-react";
@@ -71,7 +70,7 @@ const ProfileDetails = () => {
   }, []);
 
   const handleNavigateHome = () => {
-    navigate("/");
+    navigate("/find-house");
   };
 
   const handleEditProfile = () => {

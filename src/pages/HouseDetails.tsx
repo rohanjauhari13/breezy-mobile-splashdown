@@ -25,7 +25,7 @@ interface HouseDetailsProps {
 const HouseDetails = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const listing = location.state?.listing as HouseDetailsProps;
+  const listing = location.state?.listing;
   
   // Default listing if none was passed through navigation
   const [houseDetails] = useState<HouseDetailsProps>(
@@ -55,7 +55,7 @@ const HouseDetails = () => {
   };
 
   const handleNavigateHome = () => {
-    navigate("/");
+    navigate("/find-house");
   };
 
   const handleNavigateProfile = () => {

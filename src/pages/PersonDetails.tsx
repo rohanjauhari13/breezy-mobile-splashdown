@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { ArrowLeft, Home, User, RefreshCcw } from "lucide-react";
@@ -29,7 +28,7 @@ const PersonDetails = () => {
   };
 
   const handleNavigateHome = () => {
-    navigate("/");
+    navigate("/find-house");
   };
 
   const handleNavigateProfile = () => {

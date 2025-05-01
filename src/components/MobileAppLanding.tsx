@@ -21,8 +21,8 @@ const MobileAppLanding = () => {
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <img
-          src="/lovable-uploads/d907e57c-1414-456d-97cf-3af117d78e5a.png"
-          alt="Apartment building"
+          src="/lovable-uploads/35779b5b-13e2-4fc5-819b-4e46a612243c.png"
+          alt="Beautiful brick brownstone buildings"
           className="w-full h-full object-cover"
         />
       </div>

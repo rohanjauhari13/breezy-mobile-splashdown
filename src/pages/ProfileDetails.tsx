@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Home, User, Edit, ArrowLeft } from "lucide-react";
@@ -6,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "@/lib/supabase";
 import { UserProfile as UserProfileType } from "@/types/userProfile";
 import { toast } from "@/components/ui/sonner";
+import { Button } from "@/components/ui/button";
 
 const ProfileDetails = () => {
   const navigate = useNavigate();
@@ -78,7 +78,9 @@ const ProfileDetails = () => {
   };
 
   const handleGoBack = () => {
-    navigate(-1);
+    // Using explicit route navigation instead of history-based navigation
+    // This ensures more predictable behavior
+    navigate("/");
   };
 
   const handleLogout = async () => {
@@ -110,12 +112,14 @@ const ProfileDetails = () => {
       {/* Header */}
       <header className="p-6 flex items-center justify-between border-b">
         <div className="flex items-center gap-2">
-          <button 
+          <Button 
             onClick={handleGoBack}
-            className="p-2 rounded-full hover:bg-gray-100"
+            variant="ghost"
+            size="icon"
+            className="rounded-full"
           >
             <ArrowLeft className="w-5 h-5" />
-          </button>
+          </Button>
           <h1 className="text-2xl font-bold">Profile</h1>
         </div>
         <button 

@@ -3,16 +3,38 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "@/lib/supabase";
+import { toast } from "@/components/ui/sonner";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Login attempt with:", { email, password });
-    // Handle authentication logic here
+    setIsLoading(true);
+    
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password
+      });
+
+      if (error) {
+        toast.error(error.message || "Failed to sign in");
+        console.error("Login error:", error);
+      } else if (data.user) {
+        toast.success("Successfully signed in");
+        navigate("/find-house");
+      }
+    } catch (error) {
+      console.error("Unexpected error during login:", error);
+      toast.error("An unexpected error occurred");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -50,8 +72,9 @@ const SignIn = () => {
           <Button 
             type="submit" 
             className="w-full bg-black text-white hover:bg-gray-800 rounded-lg py-6 text-lg font-medium h-auto"
+            disabled={isLoading}
           >
-            Login
+            {isLoading ? "Signing in..." : "Login"}
           </Button>
         </form>
         

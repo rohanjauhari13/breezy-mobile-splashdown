@@ -11,6 +11,7 @@ import {
 import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface FiltersSheetProps {
   open: boolean;
@@ -98,117 +99,119 @@ const FiltersSheet: React.FC<FiltersSheetProps> = ({ open, onOpenChange }) => {
           </SheetClose>
         </SheetHeader>
 
-        <div className="flex flex-col space-y-8 overflow-y-auto pb-20">
-          {/* Distance from NU */}
-          <div className="space-y-4">
-            <h3 className="text-xl font-semibold">Distance from NU</h3>
-            <div className="px-1">
-              <div className="flex justify-between mb-2">
-                <span>0</span>
-                <span>{distance[0]} Mile(s)</span>
+        <ScrollArea className="h-[calc(90vh-80px)] pr-4">
+          <div className="flex flex-col space-y-8 pb-20">
+            {/* Distance from NU */}
+            <div className="space-y-4">
+              <h3 className="text-xl font-semibold">Distance from NU</h3>
+              <div className="px-1">
+                <div className="flex justify-between mb-2">
+                  <span>0</span>
+                  <span>{distance[0]} Mile(s)</span>
+                </div>
+                <Slider 
+                  defaultValue={[5]} 
+                  max={10} 
+                  step={1} 
+                  value={distance}
+                  onValueChange={setDistance}
+                  className="mt-2"
+                />
               </div>
-              <Slider 
-                defaultValue={[5]} 
-                max={10} 
-                step={1} 
-                value={distance}
-                onValueChange={setDistance}
-                className="mt-2"
+            </div>
+
+            {/* Red-eye Accessible */}
+            <div className="flex items-center justify-between">
+              <h3 className="text-xl font-semibold">Red-eye Accessible?</h3>
+              <Switch 
+                checked={isAccessible} 
+                onCheckedChange={setIsAccessible} 
+                className="data-[state=checked]:bg-red-500"
               />
             </div>
-          </div>
 
-          {/* Red-eye Accessible */}
-          <div className="flex items-center justify-between">
-            <h3 className="text-xl font-semibold">Red-eye Accessible?</h3>
-            <Switch 
-              checked={isAccessible} 
-              onCheckedChange={setIsAccessible} 
-              className="data-[state=checked]:bg-red-500"
-            />
-          </div>
+            {/* Price range */}
+            <div className="space-y-4">
+              <h3 className="text-xl font-semibold">Price range</h3>
+              <div className="grid grid-cols-2 gap-4">
+                <Input 
+                  type="number" 
+                  placeholder="Min" 
+                  value={minPrice} 
+                  onChange={(e) => setMinPrice(e.target.value)} 
+                  className="text-base rounded-lg"
+                />
+                <Input 
+                  type="number" 
+                  placeholder="Max" 
+                  value={maxPrice} 
+                  onChange={(e) => setMaxPrice(e.target.value)} 
+                  className="text-base rounded-lg"
+                />
+              </div>
+            </div>
 
-          {/* Price range */}
-          <div className="space-y-4">
-            <h3 className="text-xl font-semibold">Price range</h3>
-            <div className="grid grid-cols-2 gap-4">
-              <Input 
-                type="number" 
-                placeholder="Min" 
-                value={minPrice} 
-                onChange={(e) => setMinPrice(e.target.value)} 
-                className="text-base rounded-lg"
-              />
-              <Input 
-                type="number" 
-                placeholder="Max" 
-                value={maxPrice} 
-                onChange={(e) => setMaxPrice(e.target.value)} 
-                className="text-base rounded-lg"
-              />
+            {/* Bedrooms */}
+            <div className="space-y-4">
+              <h3 className="text-xl font-semibold">Bedrooms</h3>
+              <div className="flex flex-wrap gap-3">
+                {bedroomOptions.map((option) => (
+                  <button
+                    key={option.id}
+                    onClick={() => handleOptionSelect(bedroomOptions, setBedroomOptions, option.id)}
+                    className={`px-6 py-3 rounded-full text-sm ${
+                      option.selected
+                        ? "bg-black text-white"
+                        : "bg-gray-100 text-gray-800"
+                    }`}
+                  >
+                    {option.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Bathrooms */}
+            <div className="space-y-4">
+              <h3 className="text-xl font-semibold">Bathrooms</h3>
+              <div className="flex flex-wrap gap-3">
+                {bathroomOptions.map((option) => (
+                  <button
+                    key={option.id}
+                    onClick={() => handleOptionSelect(bathroomOptions, setBathroomOptions, option.id)}
+                    className={`px-6 py-3 rounded-full text-sm ${
+                      option.selected
+                        ? "bg-black text-white"
+                        : "bg-gray-100 text-gray-800"
+                    }`}
+                  >
+                    {option.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Preferences */}
+            <div className="space-y-4">
+              <h3 className="text-xl font-semibold">Preferences</h3>
+              <div className="flex flex-wrap gap-3">
+                {preferenceOptions.map((option) => (
+                  <button
+                    key={option.id}
+                    onClick={() => handleOptionSelect(preferenceOptions, setPreferenceOptions, option.id)}
+                    className={`px-6 py-3 rounded-full text-sm ${
+                      option.selected
+                        ? "bg-black text-white"
+                        : "bg-gray-100 text-gray-800"
+                    }`}
+                  >
+                    {option.label}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
-
-          {/* Bedrooms */}
-          <div className="space-y-4">
-            <h3 className="text-xl font-semibold">Bedrooms</h3>
-            <div className="flex flex-wrap gap-3">
-              {bedroomOptions.map((option) => (
-                <button
-                  key={option.id}
-                  onClick={() => handleOptionSelect(bedroomOptions, setBedroomOptions, option.id)}
-                  className={`px-6 py-3 rounded-full text-sm ${
-                    option.selected
-                      ? "bg-black text-white"
-                      : "bg-gray-100 text-gray-800"
-                  }`}
-                >
-                  {option.label}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Bathrooms */}
-          <div className="space-y-4">
-            <h3 className="text-xl font-semibold">Bathrooms</h3>
-            <div className="flex flex-wrap gap-3">
-              {bathroomOptions.map((option) => (
-                <button
-                  key={option.id}
-                  onClick={() => handleOptionSelect(bathroomOptions, setBathroomOptions, option.id)}
-                  className={`px-6 py-3 rounded-full text-sm ${
-                    option.selected
-                      ? "bg-black text-white"
-                      : "bg-gray-100 text-gray-800"
-                  }`}
-                >
-                  {option.label}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Preferences */}
-          <div className="space-y-4">
-            <h3 className="text-xl font-semibold">Preferences</h3>
-            <div className="flex flex-wrap gap-3">
-              {preferenceOptions.map((option) => (
-                <button
-                  key={option.id}
-                  onClick={() => handleOptionSelect(preferenceOptions, setPreferenceOptions, option.id)}
-                  className={`px-6 py-3 rounded-full text-sm ${
-                    option.selected
-                      ? "bg-black text-white"
-                      : "bg-gray-100 text-gray-800"
-                  }`}
-                >
-                  {option.label}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
+        </ScrollArea>
       </SheetContent>
     </Sheet>
   );

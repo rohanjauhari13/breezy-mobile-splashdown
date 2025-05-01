@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from "react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Home, User, Edit } from "lucide-react";
+import { Home, User, Edit, ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/lib/supabase";
 import { UserProfile as UserProfileType } from "@/types/userProfile";
@@ -77,6 +77,10 @@ const ProfileDetails = () => {
     navigate("/user-profile");
   };
 
+  const handleGoBack = () => {
+    navigate(-1);
+  };
+
   const handleLogout = async () => {
     try {
       const { error } = await supabase.auth.signOut();
@@ -105,7 +109,15 @@ const ProfileDetails = () => {
     <div className="w-full min-h-screen bg-white flex flex-col">
       {/* Header */}
       <header className="p-6 flex items-center justify-between border-b">
-        <h1 className="text-2xl font-bold">Profile</h1>
+        <div className="flex items-center gap-2">
+          <button 
+            onClick={handleGoBack}
+            className="p-2 rounded-full hover:bg-gray-100"
+          >
+            <ArrowLeft className="w-5 h-5" />
+          </button>
+          <h1 className="text-2xl font-bold">Profile</h1>
+        </div>
         <button 
           onClick={handleLogout}
           className="text-red-500"

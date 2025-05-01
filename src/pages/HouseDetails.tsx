@@ -1,7 +1,10 @@
+
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Home, User, RefreshCcw, ArrowLeft } from "lucide-react";
+import { Home, User, RefreshCcw, ArrowLeft, PhoneCall } from "lucide-react";
 import BackButton from "@/components/BackButton";
+import { Button } from "@/components/ui/button";
+import { toast } from "@/components/ui/sonner";
 
 interface HouseDetailsProps {
   id: string;
@@ -57,6 +60,12 @@ const HouseDetails = () => {
 
   const handleNavigateProfile = () => {
     navigate("/profile-details");
+  };
+
+  const handleContact = () => {
+    toast.success(`Contacting about ${houseDetails.address}...`, {
+      description: "The owner will reach out to you shortly."
+    });
   };
 
   return (
@@ -189,6 +198,17 @@ const HouseDetails = () => {
             </div>
           </div>
         )}
+      </div>
+
+      {/* Contact button */}
+      <div className="px-6 pb-6">
+        <Button 
+          onClick={handleContact}
+          className="w-full py-6 text-lg font-medium h-auto flex items-center justify-center gap-2 bg-black hover:bg-gray-800"
+        >
+          <PhoneCall className="w-5 h-5" />
+          Contact Owner
+        </Button>
       </div>
 
       {/* Footer navigation */}

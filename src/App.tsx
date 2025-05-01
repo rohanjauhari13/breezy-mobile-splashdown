@@ -15,6 +15,7 @@ import MatchingProfiles from "./pages/MatchingProfiles";
 import FindHouse from "./pages/FindHouse";
 import ProfileDetails from "./pages/ProfileDetails";
 import HouseDetails from "./pages/HouseDetails";
+import PersonDetails from "./pages/PersonDetails";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -37,6 +38,7 @@ const App = () => (
           <Route path="/find-house" element={<FindHouse />} />
           <Route path="/house-details/:id" element={<HouseDetails />} />
           <Route path="/profile-details" element={<ProfileDetails />} />
+          <Route path="/person-details/:id" element={<PersonDetails />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

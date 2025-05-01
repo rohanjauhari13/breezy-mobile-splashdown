@@ -176,7 +176,7 @@ const PersonDetails = () => {
       </div>
       
       {/* Amenities section */}
-      <div className="px-6 py-4 mb-32">
+      <div className="px-6 py-4">
         <h3 className="text-2xl font-bold mb-4">Amenties</h3>
         <div className="flex flex-wrap gap-2">
           {personProfile.amenities.map((amenity, index) => (
@@ -190,8 +190,8 @@ const PersonDetails = () => {
         </div>
       </div>
 
-      {/* Contact button */}
-      <div className="px-6 fixed bottom-16 left-0 right-0">
+      {/* Contact button - now positioned at bottom of content instead of fixed */}
+      <div className="px-6 py-8 mt-auto mb-16">
         <Button 
           onClick={handleContact}
           className="w-full py-6 text-lg font-medium h-auto flex items-center justify-center gap-2 bg-black hover:bg-gray-800"

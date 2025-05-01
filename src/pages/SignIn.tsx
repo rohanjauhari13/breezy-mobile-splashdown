@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -26,7 +27,9 @@ const SignIn = () => {
         toast.error(error.message || "Failed to sign in");
         console.error("Login error:", error);
       } else if (data.user) {
-        toast.success("Successfully signed in");
+        toast.success("Successfully signed in", {
+          duration: 2000 // 2 seconds duration
+        });
         navigate("/find-house");
       }
     } catch (error) {

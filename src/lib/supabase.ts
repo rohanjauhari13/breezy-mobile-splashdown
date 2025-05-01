@@ -76,6 +76,22 @@ function createMockClient() {
     auth: {
       signUp: () => Promise.resolve({ error: null, data: { user: null } }),
       signIn: () => Promise.resolve({ error: null, data: { user: null } }),
+      signInWithPassword: (credentials: { email: string, password: string }) => {
+        console.log(`Mock sign in with password for email: ${credentials.email}`);
+        return Promise.resolve({ 
+          error: null, 
+          data: { 
+            user: { 
+              id: 'mock-user-id', 
+              email: credentials.email 
+            },
+            session: { 
+              access_token: 'mock-access-token',
+              refresh_token: 'mock-refresh-token'
+            }
+          } 
+        });
+      },
       signOut: () => Promise.resolve({ error: null }),
       getSession: () => Promise.resolve({ error: null, data: { session: null } }),
     }

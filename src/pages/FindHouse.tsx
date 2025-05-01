@@ -1,7 +1,5 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Filter, Home, User } from "lucide-react";
@@ -95,16 +93,10 @@ const FindHouse = () => {
 
   return (
     <div className="w-full min-h-screen bg-white flex flex-col">
-      {/* Header with back button, user avatar and navigation buttons */}
+      {/* Header with back button and navigation buttons */}
       <header className="p-4 border-b">
-        <div className="mb-4">
-          <BackButton />
-        </div>
         <div className="flex items-center justify-between">
-          <Avatar className="w-12 h-12">
-            <AvatarImage src="" alt="User" />
-            <AvatarFallback>U</AvatarFallback>
-          </Avatar>
+          <BackButton />
           
           <div className="flex gap-2">
             <button className="bg-black text-white flex items-center gap-1 px-6 py-2 rounded-full">

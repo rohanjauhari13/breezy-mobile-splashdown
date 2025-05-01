@@ -130,26 +130,36 @@ const HouseDetailsForm = () => {
         
         <div>
           <label className="text-lg font-medium">Bedrooms</label>
-          <ToggleGroup type="single" className="flex flex-wrap gap-2 mt-2" value={bedrooms} onValueChange={setBedrooms}>
-            <ToggleGroupItem value="Any" className="bg-gray-100 rounded-full px-6">Any</ToggleGroupItem>
-            <ToggleGroupItem value="1" className="bg-gray-100 rounded-full px-6">1</ToggleGroupItem>
-            <ToggleGroupItem value="2" className="bg-gray-100 rounded-full px-6">2</ToggleGroupItem>
-            <ToggleGroupItem value="3" className="bg-gray-100 rounded-full px-6">3</ToggleGroupItem>
-            <ToggleGroupItem value="4" className="bg-gray-100 rounded-full px-6">4</ToggleGroupItem>
-            <ToggleGroupItem value="5+" className="bg-gray-100 rounded-full px-6">5+</ToggleGroupItem>
-          </ToggleGroup>
+          <div className="flex flex-wrap gap-2 mt-2">
+            {["Any", "1", "2", "3", "4", "5+"].map((value) => (
+              <Button 
+                key={value}
+                type="button"
+                variant={bedrooms === value ? "default" : "outline"}
+                onClick={() => setBedrooms(value)}
+                className={`rounded-full px-6 ${bedrooms === value ? "bg-primary text-white" : "bg-gray-100 border-0"}`}
+              >
+                {value}
+              </Button>
+            ))}
+          </div>
         </div>
         
         <div>
           <label className="text-lg font-medium">Bathrooms</label>
-          <ToggleGroup type="single" className="flex flex-wrap gap-2 mt-2" value={bathrooms} onValueChange={setBathrooms}>
-            <ToggleGroupItem value="Any" className="bg-gray-100 rounded-full px-6">Any</ToggleGroupItem>
-            <ToggleGroupItem value="1.0" className="bg-gray-100 rounded-full px-6">1.0</ToggleGroupItem>
-            <ToggleGroupItem value="1.5" className="bg-gray-100 rounded-full px-6">1.5</ToggleGroupItem>
-            <ToggleGroupItem value="2.0" className="bg-gray-100 rounded-full px-6">2.0</ToggleGroupItem>
-            <ToggleGroupItem value="2.5" className="bg-gray-100 rounded-full px-6">2.5</ToggleGroupItem>
-            <ToggleGroupItem value="3+" className="bg-gray-100 rounded-full px-6">3+</ToggleGroupItem>
-          </ToggleGroup>
+          <div className="flex flex-wrap gap-2 mt-2">
+            {["Any", "1.0", "1.5", "2.0", "2.5", "3+"].map((value) => (
+              <Button 
+                key={value}
+                type="button"
+                variant={bathrooms === value ? "default" : "outline"}
+                onClick={() => setBathrooms(value)}
+                className={`rounded-full px-6 ${bathrooms === value ? "bg-primary text-white" : "bg-gray-100 border-0"}`}
+              >
+                {value}
+              </Button>
+            ))}
+          </div>
         </div>
         
         <div>

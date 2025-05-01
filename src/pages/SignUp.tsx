@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -6,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { supabase } from "@/lib/supabase";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import BackButton from "@/components/BackButton";
 
 const SignUp = () => {
   const [name, setName] = useState("");
@@ -107,7 +107,11 @@ const SignUp = () => {
 
   return (
     <div className="w-full min-h-screen bg-white px-6 py-12 flex flex-col">
-      <div className="mt-8 mb-12">
+      <div className="mb-6">
+        <BackButton />
+      </div>
+      
+      <div className="mt-2 mb-12">
         <h1 className="text-4xl font-semibold mb-8">Create Account</h1>
         
         <form onSubmit={handleSubmit} className="space-y-6">

@@ -1,16 +1,12 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import BackButton from "@/components/BackButton";
 
 const RoommateOptions = () => {
   const navigate = useNavigate();
-  
-  const handleGoBack = () => {
-    navigate("/looking-for-options");
-  };
   
   const handleOptionSelect = (option: string) => {
     console.log(`Selected roommate option: ${option}`);
@@ -24,13 +20,7 @@ const RoommateOptions = () => {
   
   return (
     <div className="w-full min-h-screen bg-white px-6 py-8">
-      <Button
-        onClick={handleGoBack}
-        variant="ghost"
-        className="rounded-full bg-gray-100 w-12 h-12 p-0 mb-10"
-      >
-        <ArrowLeft className="h-6 w-6" />
-      </Button>
+      <BackButton className="mb-10" />
       
       <h1 className="text-4xl font-bold mb-12">
         What are you looking for?

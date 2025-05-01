@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { supabase } from "@/lib/supabase";
 import { UserProfile as UserProfileType } from "@/types/userProfile";
+import BackButton from "@/components/BackButton";
 
 const UserProfile = () => {
   const [name, setName] = useState("");
@@ -87,7 +88,8 @@ const UserProfile = () => {
   
   return (
     <div className="w-full min-h-screen bg-white px-6 py-8">
-      <div className="flex justify-end mb-4">
+      <div className="flex justify-between mb-4">
+        <BackButton />
         <Button 
           onClick={handleSkip} 
           variant="ghost" 

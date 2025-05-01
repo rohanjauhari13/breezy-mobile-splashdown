@@ -3,6 +3,7 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Home, User, Search } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { UserProfile } from "@/types/userProfile";
+import BackButton from "@/components/BackButton";
 
 const MatchingProfiles = () => {
   const navigate = useNavigate();
@@ -83,22 +84,21 @@ const MatchingProfiles = () => {
     navigate("/profile-details");
   };
   
-  const handleFindHouse = () => {
-    navigate("/find-house");
-  };
-
   const handleProfileClick = (profile: UserProfile) => {
     navigate(`/person-details/${profile.id}`, { state: { profile } });
   };
 
   return (
     <div className="w-full min-h-screen bg-white flex flex-col">
-      {/* Header with user avatar and navigation buttons */}
+      {/* Header with back button, user avatar and navigation buttons */}
       <header className="p-4 border-b flex items-center justify-between">
-        <Avatar className="w-12 h-12">
-          <AvatarImage src="" alt="User" />
-          <AvatarFallback>U</AvatarFallback>
-        </Avatar>
+        <div className="flex items-center">
+          <BackButton className="mr-2" />
+          <Avatar className="w-12 h-12">
+            <AvatarImage src="" alt="User" />
+            <AvatarFallback>U</AvatarFallback>
+          </Avatar>
+        </div>
         
         <div className="flex gap-2">
           <button 

@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { ArrowLeft, Home, User, RefreshCcw } from "lucide-react";
+import { Home, User, RefreshCcw } from "lucide-react";
 import { UserProfile } from "@/types/userProfile";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import BackButton from "@/components/BackButton";
 
 const PersonDetails = () => {
   const navigate = useNavigate();
@@ -39,12 +40,7 @@ const PersonDetails = () => {
     <div className="w-full min-h-screen bg-white flex flex-col">
       {/* Back button and refresh button */}
       <div className="p-4 flex justify-between items-center">
-        <button 
-          onClick={handleBack}
-          className="bg-gray-100 p-3 rounded-full"
-        >
-          <ArrowLeft className="w-5 h-5" />
-        </button>
+        <BackButton />
         <h1 className="text-2xl font-bold">Profile Details</h1>
         <button className="text-red-500">
           <RefreshCcw className="w-5 h-5" />

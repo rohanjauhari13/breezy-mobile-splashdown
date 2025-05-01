@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Home, User, RefreshCcw, ArrowRight } from "lucide-react";
@@ -40,11 +39,14 @@ const PersonDetails = () => {
     navigate("/profile-details");
   };
   
+  // Updated to navigate to house-details with the correct ID from the profile
   const handleViewPostedHouse = () => {
-    navigate("/house-details", { 
+    const houseId = profile?.postedHouseId || "1"; // Use the postedHouseId from profile if available
+    
+    navigate(`/house-details/${houseId}`, { 
       state: { 
         listing: {
-          id: "1",
+          id: houseId,
           imageUrl: "https://images.unsplash.com/photo-1518005020951-eccb494ad742",
           address: "16, Delle Ave.",
           location: "Mission Main",

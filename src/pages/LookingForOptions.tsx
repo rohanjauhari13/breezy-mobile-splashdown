@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -14,8 +15,8 @@ const LookingForOptions = () => {
     // Navigate to the appropriate page based on selection
     if (option === "roommates") {
       navigate("/roommate-options");
-    } else {
-      navigate("/");
+    } else if (option === "home") {
+      navigate("/find-house");
     }
   };
   
